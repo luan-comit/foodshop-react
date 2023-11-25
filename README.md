@@ -2,6 +2,9 @@
 
 VIET THANH LUAN, LE
 
+This webtool allow user to create/change/delete BrokenRice's main dishes and side dishes on restaurant dababase
+It's to date up and running demo at https://foodshop.luanle.online
+
 # Getting Started
 
 Clone this repo into your local computer then run the following commands:
