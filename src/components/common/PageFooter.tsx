@@ -18,7 +18,7 @@ interface PageFooterProps {
 }
 
 
-const PageFooter = ({ pageFooter = '© Food Shop - a React project of Luan Le' }: PageFooterProps): JSX.Element => {
+const PageFooter = ({ pageFooter = '© Food Shop - a TypeScript & GraphQL & React project of Luan Le' }: PageFooterProps): JSX.Element => {
   const classes = useStyles();
 
   return (

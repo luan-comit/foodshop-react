@@ -56,6 +56,7 @@ const useStyles = makeStyles(({ typography }: Theme) =>
 
 const BrokenRicePage: React.FC = () => {
   const classes = useStyles()
+  const LIMIT = 3
 
   const [open, setOpen] = React.useState(false)
   const [selectedBrokenRice, setSelectedBrokenRice] =
@@ -68,7 +69,7 @@ const BrokenRicePage: React.FC = () => {
 
   const { loading, data, fetchMore } = useQuery(GET_BROKEN_RICE_RESPONSE, {
     variables: {
-      limit: 3,
+      limit: LIMIT,
       cursor: "",
       totalCount: 0,
     },
@@ -128,7 +129,7 @@ const BrokenRicePage: React.FC = () => {
           if (connection.hasNextPage) {
             fetchMore({
               variables: {
-                limit: 3,
+                limit: LIMIT,
                 cursor: data.brokenRicePage.connection.cursor,
                 totalCount: data.brokenRicePage.connection.totalCount,
               },
