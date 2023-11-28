@@ -1,13 +1,20 @@
-import React from 'react';
-import { Backdrop, createStyles, Grid, makeStyles, Modal, Theme } from '@material-ui/core';
-import BrokenRiceFormix from '../Formik/Formik';
+import React from "react"
+import {
+  Backdrop,
+  createStyles,
+  Grid,
+  makeStyles,
+  Modal,
+  Theme,
+} from "@material-ui/core"
+import BrokenRiceFormix from "../Formik/Formik"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     paper: {
       backgroundColor: theme.palette.background.paper,
@@ -15,17 +22,17 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2, 4, 3),
     },
     root: {
-      '& .MuiTextField-root': {
+      "& .MuiTextField-root": {
         margin: theme.spacing(1),
       },
     },
     skeleton: {
-      display: 'flex',
-      justifyContent: 'center',
-      verticalAlign: 'center',
+      display: "flex",
+      justifyContent: "center",
+      verticalAlign: "center",
     },
   })
-);
+)
 
 interface BrokenRiceModalProps {
   selectedBrokenRice?: any;
@@ -56,11 +63,11 @@ const BrokenRiceModal = ({ selectedBrokenRice, setSelectedBrokenRice, open, setO
           setSelectedBrokenRice={setSelectedBrokenRice}
           open={open}
           setOpen={setOpen}
-          mutationClick={selectedBrokenRice ? 'Update' : 'Add'}
+          mutationClick={selectedBrokenRice ? "Update" : "Add"}
         />
       </Modal>
     </Grid>
-  );
-};
+  )
+}
 
-export default BrokenRiceModal;
+export default BrokenRiceModal

@@ -1,5 +1,5 @@
-import React from 'react';
-import { AddCircle, Delete } from '@material-ui/icons';
+import React from "react"
+import { AddCircle, Delete } from "@material-ui/icons"
 import {
   Backdrop,
   createStyles,
@@ -10,16 +10,16 @@ import {
   Paper,
   TextField,
   Theme,
-} from '@material-ui/core';
+} from "@material-ui/core"
 
-import useSideDishMutations from '../../hooks/sideDish/use-sideDish-mutations';
+import useSideDishMutations from "../../hooks/sideDish/use-sideDish-mutations"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     paper: {
       backgroundColor: theme.palette.background.paper,
@@ -27,13 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2, 4, 3),
     },
     root: {
-      '& .MuiTextField-root': {
+      "& .MuiTextField-root": {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: "25ch",
+        justifyContent: "center",
       },
     },
   })
-);
+)
 
 interface SideDishModalProps {
   selectedSideDish?: any;
@@ -42,13 +43,19 @@ interface SideDishModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SideDishModal = ({ selectedSideDish, setSelectedSideDish, open, setOpen }: SideDishModalProps): JSX.Element => {
-  const classes = useStyles();
+const SideDishModal = ({
+  selectedSideDish,
+  setSelectedSideDish,
+  open,
+  setOpen,
+}: SideDishModalProps): JSX.Element => {
+  const classes = useStyles()
 
-  const { onCreateSideDish, onDeleteSideDish, onUpdateSideDish } = useSideDishMutations();
+  const { onCreateSideDish, onDeleteSideDish, onUpdateSideDish } =
+    useSideDishMutations()
 
   return (
-    <Modal
+    <Modal 
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
@@ -62,13 +69,18 @@ const SideDishModal = ({ selectedSideDish, setSelectedSideDish, open, setOpen }:
     >
       <Fade in={open}>
         <Paper className={classes.paper}>
-          <h2>{selectedSideDish ? 'Edit' : 'Add'} SideDish</h2>
+          <h2>{selectedSideDish ? "Edit" : "Add"} SideDish</h2>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
               id="name-input"
               label="SideDish Name"
               defaultValue={selectedSideDish?.name}
-              onChange={(event): void => setSelectedSideDish({ ...selectedSideDish, name: event.target.value })}
+              onChange={(event): void =>
+                setSelectedSideDish({
+                  ...selectedSideDish,
+                  name: event.target.value,
+                })
+              }
             />
             <TextField
               id="price-input"
@@ -76,7 +88,10 @@ const SideDishModal = ({ selectedSideDish, setSelectedSideDish, open, setOpen }:
               type="number"
               defaultValue={selectedSideDish?.priceCents}
               onChange={(event): void =>
-                setSelectedSideDish({ ...selectedSideDish, priceCents: parseInt(event.target.value) })
+                setSelectedSideDish({
+                  ...selectedSideDish,
+                  priceCents: parseInt(event.target.value),
+                })
               }
             />
             <IconButton
@@ -84,8 +99,10 @@ const SideDishModal = ({ selectedSideDish, setSelectedSideDish, open, setOpen }:
               aria-label="update"
               type="button"
               onClick={(): void => {
-                selectedSideDish?.id ? onUpdateSideDish(selectedSideDish) : onCreateSideDish(selectedSideDish);
-                setOpen(false);
+                selectedSideDish?.id
+                  ? onUpdateSideDish(selectedSideDish)
+                  : onCreateSideDish(selectedSideDish)
+                setOpen(false)
               }}
             >
               <AddCircle />

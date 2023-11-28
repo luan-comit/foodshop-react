@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       padding: theme.spacing(2, 0, 2),
+      maxWidth: 'md',
     },
     link: {
       textDecoration: 'none',
@@ -49,7 +50,7 @@ const Nav = (): JSX.Element | null => {
             />
           </NavLink>
           <NavLink className={classes.link} to="/brokenRices">
-            Broken Rices
+            Main Dishes
           </NavLink>
           <NavLink className={classes.link} to="/sideDishes">
             Side Dishes

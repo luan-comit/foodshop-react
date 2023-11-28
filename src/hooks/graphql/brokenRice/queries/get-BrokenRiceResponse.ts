@@ -1,10 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client"
 
 const GET_BROKEN_RICE_RESPONSE = gql`
   query BrokenRicePage($limit: Int!, $cursor: String, $totalCount: Int) {
     brokenRicePage(limit: $limit, cursor: $cursor, totalCount: $totalCount) {
       brokenRices {
         name
+        id
         sideDishes {
           name
           id
@@ -21,6 +22,6 @@ const GET_BROKEN_RICE_RESPONSE = gql`
       }
     }
   }
-`;
+`
 
-export { GET_BROKEN_RICE_RESPONSE };
+export { GET_BROKEN_RICE_RESPONSE }

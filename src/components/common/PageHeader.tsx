@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   header: {
     display: 'flex',
     margin: theme.spacing(2, 0, 2),
-    fontSize: theme.typography.pxToRem(24),
+    fontSize: theme.typography.pxToRem(16),
     textTransform: 'capitalize',
     fontFamily: 'Papyrus',
   },

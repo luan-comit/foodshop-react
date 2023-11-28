@@ -1,98 +1,127 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
-import { Button, Container, createStyles, IconButton, List, makeStyles, Theme } from '@material-ui/core';
-import PageHeader from '../common/PageHeader';
-import CardItemSkeleton from '../common/CardItemSkeleton';
-import BrokenRiceItem from './BrokenRiceItem';
-import { AddCircle } from '@material-ui/icons';
-import BrokenRiceModal from './BrokenRiceModal';
-import Grid from '@material-ui/core/Grid';
-import { GET_BROKEN_RICE_RESPONSE } from '../../hooks/graphql/brokenRice/queries/get-BrokenRiceResponse';
-import { BrokenRice } from '../../types/schema';
+import React from "react"
+import { useQuery } from "@apollo/client"
+import {
+  Button,
+  Container,
+  createStyles,
+  IconButton,
+  List,
+  makeStyles,
+  Theme,
+} from "@material-ui/core"
+import PageHeader from "../common/PageHeader"
+import CardItemSkeleton from "../common/CardItemSkeleton"
+import BrokenRiceItem from "./BrokenRiceItem"
+import { AddCircleOutline } from "@material-ui/icons"
+import BrokenRiceModal from "./BrokenRiceModal"
+import Grid from "@material-ui/core/Grid"
+import { GET_BROKEN_RICE_RESPONSE } from "../../hooks/graphql/brokenRice/queries/get-BrokenRiceResponse"
+import { BrokenRice } from "../../types/schema"
+import PageFooter from "../common/PageFooter"
 
 const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: "flex",
     },
     container: {
-      textAlign: 'center',
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
+      textAlign: "center",
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
       flexGrow: 1,
     },
     skeleton: {
-      display: 'flex',
-      justifyContent: 'center',
-      verticalAlign: 'center',
+      display: "flex",
+      justifyContent: "center",
+      verticalAlign: "center",
     },
     header: {
-      display: 'flex',
+      display: "flex",
     },
     right: {
-      display: 'flex',
-      width: '100%',
-      justifyContent: 'space-between',
+      display: "flex",
+      width: "100%",
+      justifyContent: "space-between",
       spacing: 10,
-      padding: '20px',
+      padding: "20px",
     },
     button: {
-      textAlign: 'center',
-      background: 'lightblue',
-      color: 'red',
+      textAlign: "center",
+      background: "lightblue",
+      color: "red",
     },
   })
-);
+)
 
 const BrokenRicePage: React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const [open, setOpen] = React.useState(false);
-  const [selectedBrokenRice, setSelectedBrokenRice] = React.useState<Partial<BrokenRice>>();
+  const [open, setOpen] = React.useState(false)
+  const [selectedBrokenRice, setSelectedBrokenRice] =
+    React.useState<Partial<BrokenRice>>()
 
   const handleOpen = (brokenRice?: BrokenRice): void => {
-    setSelectedBrokenRice(brokenRice);
-    setOpen(true);
-  };
+    setSelectedBrokenRice(brokenRice)
+    setOpen(true)
+  }
 
   const { loading, data, fetchMore } = useQuery(GET_BROKEN_RICE_RESPONSE, {
     variables: {
       limit: 3,
-      cursor: '',
+      cursor: "",
       totalCount: 0,
     },
-  });
+  })
 
-  if (loading) return <CardItemSkeleton data-testid="brokenRice-page-loading" />;
+  if (loading) return <CardItemSkeleton data-testid="brokenRice-page-loading" />
 
-  const { connection, brokenRices } = data.brokenRicePage;
+  const { connection, brokenRices } = data.brokenRicePage
+
   const brokenRiceList = brokenRices.map((brokenRice: BrokenRice) => (
-    <BrokenRiceItem data-testid={`brokenRice-item-${brokenRice.id}`} key={brokenRice.id} handleOpen={handleOpen} brokenRice={brokenRice} />
-  ));
+    <BrokenRiceItem
+      key={brokenRice.id}
+      data-testid={`brokenRice-item-${brokenRice.id}`}
+      handleOpen={handleOpen}
+      brokenRice={brokenRice}
+    />
+  ))
 
-  var buttonDisplay = 'Load More Broken Rices ...';
+  var buttonDisplay = "Load More Broken Rices ..."
   if (!connection.hasNextPage) {
-    buttonDisplay = 'No more Broken Rices !';
+    buttonDisplay = "No more Broken Rices !"
   }
 
   return (
     <Container>
-      <PageHeader pageHeader={'Broken Rices'} />
+      <div className={classes.header}>
+        <PageHeader pageHeader={"Broken Rice Recipes"} />
+      </div>
       <Grid>
         <List className={classes.container}>
           <div className={classes.right}>
             <h2>
-              <i>Add Main Dish </i> ::: <span> </span>
-              <IconButton edge="start" aria-label="modify" type="button" onClick={(): void => handleOpen()}>
-                <AddCircle />
+              <IconButton
+                edge="start"
+                aria-label="modify"
+                type="button"
+                onClick={(): void => handleOpen()}
+              >
+                <AddCircleOutline />
+                <p className="i"> add a new broken rice dish</p>
               </IconButton>
             </h2>
           </div>
+          {/* <BrokenRiceItem key="add-brokenRice" handleOpen={handleOpen} /> */}
           {brokenRiceList}
         </List>
       </Grid>
-      <BrokenRiceModal selectedBrokenRice={selectedBrokenRice} setSelectedBrokenRice={setSelectedBrokenRice} open={open} setOpen={setOpen} />
+      <BrokenRiceModal
+        selectedBrokenRice={selectedBrokenRice}
+        setSelectedBrokenRice={setSelectedBrokenRice}
+        open={open}
+        setOpen={setOpen}
+      />
       <Button
         className={classes.button}
         onClick={() => {
@@ -104,17 +133,21 @@ const BrokenRicePage: React.FC = () => {
                 totalCount: data.brokenRicePage.connection.totalCount,
               },
               updateQuery: (prev: any, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                fetchMoreResult.brokenRicePage.brokenRices = [...prev.brokenRicePage.brokenRices, ...fetchMoreResult.brokenRicePage.brokenRices];
-                return fetchMoreResult;
+                if (!fetchMoreResult) return prev
+                fetchMoreResult.brokenRicePage.brokenRices = [
+                  ...prev.brokenRicePage.brokenRices,
+                  ...fetchMoreResult.brokenRicePage.brokenRices,
+                ]
+                return fetchMoreResult
               },
-            });
+            })
           }
         }}
       >
         {buttonDisplay}
       </Button>
+      <PageFooter />
     </Container>
-  );
-};
-export default BrokenRicePage;
+  )
+}
+export default BrokenRicePage

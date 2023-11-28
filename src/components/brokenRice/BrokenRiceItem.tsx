@@ -73,10 +73,10 @@ const BrokenRiceItem: React.FC<BrokenRiceItemProps> = ({ handleOpen, brokenRice,
           </IconButton>
         </div>
         <CardMedia
-          title='test'
+          title='brokenRiceDish'
           component="img"
-          alt="green iguana"
-          height="100"
+          alt="please update image URL"
+          height="40%"
           data-testid={`brokenRice-image-${brokenRice?.id}`}
           src={brokenRice?.imgSrc} //className={classes.imgSize}
         ></CardMedia>

@@ -8,11 +8,12 @@ import { GET_SIDE_DISHES } from '../../hooks/graphql/sideDish/queries/get-sideDi
 import PageHeader from '../common/PageHeader';
 import SideDishModal from './SideDishModal';
 import SideDishItem from './SideDishItem';
+import PageFooter from '../common/PageFooter';
 
 const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
     container: {
-      minWidth: typography.pxToRem(650),
+      minWidth: typography.pxToRem(800),
     },
     skeleton: {
       display: 'flex',
@@ -21,11 +22,13 @@ const useStyles = makeStyles(({ typography }: Theme) =>
     },
     header: {
       display: 'flex',
+      fontSize: 'large',
+      fontWeight: 600,
     },
     name: {
       minWidth: typography.pxToRem(500),
     },
-    right: {
+    list: {
       display: 'flex',
       width: '100%',
       justifyContent: 'space-between',
@@ -60,14 +63,14 @@ const SideDishes: React.FC = () => {
   ));
 
   return (
-    <Container maxWidth="md">
-      <PageHeader pageHeader={'Side Dishes'} />
+    <Container>
+      <PageHeader pageHeader={'Side Dishes for Broken Rice'} />
       <List className={classes.container}>
         <ListItem className={classes.header}>
-          <h2 className={classes.name}>Side Dish</h2>
-          <div className={classes.right}>
-            <h2>Price</h2>
-            <h2>Modify</h2>
+          <div className={classes.list}>
+            <p>Side Dish</p>
+            <p>Price</p>
+            <p>Modify</p>
           </div>
         </ListItem>
         <SideDishItem key="add-sideDish" handleOpen={handleOpen} />
@@ -80,6 +83,7 @@ const SideDishes: React.FC = () => {
         open={open}
         setOpen={setOpen}
       />
+      <PageFooter />
     </Container>
   );
 };
